@@ -5,7 +5,7 @@
 ## Current Contract Status
 
 The application is currently using the V2 contract:
-- **ModredIP (Fufu)**: `0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40`
+- **ModredIP (Fufu)**: `0x667C61aa019EFEbECC88deF8fB3AFa0828A55Edf`
 - **Contract Key**: `ModredIPModule#ModredIP` (maintained for compatibility)
 - **Status**: ✅ Active and verified to have `registerIP` function
 

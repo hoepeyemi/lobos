@@ -99,7 +99,7 @@ async function main() {
     console.log('🔍 Verifying Contracts for registerIP Function\n');
     console.log('='.repeat(60));
     const v1Address = '0x0734d90FA1857C073c4bf1e57f4F4151BE2e9f82';
-    const v2Address = '0x99edD1865D5Cef89B17eF8ca2C6538396d6c5F40'; // ModredIPModule#ModredIP
+    const v2Address = '0x667C61aa019EFEbECC88deF8fB3AFa0828A55Edf'; // ModredIPModule#ModredIP
     const v1HasFunction = await verifyContract(v1Address, 'Fufu Module V1');
     const v2HasFunction = await verifyContract(v2Address, 'Fufu Module V2');
     console.log('\n' + '='.repeat(60));

@@ -14,8 +14,8 @@ const chain = {
 };
 
 // From ignition/deployments/chain-97/deployed_addresses.json
-const REGISTRY_ADDRESS = '0xE9053cD4c52039C79b1ED2708558eCcdd8Cc6706';
-const ACCOUNT_IMPL_ADDRESS = '0x9be86cb3691785f591DE11aa398863B89241B677';
+const REGISTRY_ADDRESS = '0x0d5ab973475A411213fb57Ad6Ac216995924F62F';
+const ACCOUNT_IMPL_ADDRESS = '0xC022Af5441732c2b3776dF9e66C96cB98eCC6F8E';
 const CHAIN_ID = 97;
 
 async function main() {

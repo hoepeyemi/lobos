@@ -26,7 +26,7 @@ Decentralized intellectual property management on **BNB Smart Chain (BSC Testnet
 ```
 lobos/
 ├── app/                    # React frontend (Vite + Thirdweb)
-│   ├── public/             # Static assets (e.g. lobos.png)
+│   ├── public/             # Static assets (e.g. Lobos.png)
 │   ├── src/
 │   │   ├── deployed_addresses.json   # Contract addresses (from ignition)
 │   │   └── ...

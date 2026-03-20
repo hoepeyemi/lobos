@@ -59,11 +59,6 @@
   margin: 0;
 }
 
-.loom-logo-icon {
-  width: 2rem;
-  height: 2rem;
-}
-
 .header-actions {
   display: flex;
   align-items: center;

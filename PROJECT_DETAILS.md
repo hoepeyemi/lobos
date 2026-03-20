@@ -6,9 +6,9 @@ This document contains the full project description, vision, business model, tea
 
 ## Project Description
 
-Fufu is a decentralized intellectual property (IP) management platform built on Creditcoin. Creators can register IP assets as token-bound accounts (ERC-6551), mint licenses with programmable terms and royalties, receive and distribute revenue on-chain, and resolve disputes through an arbitration system. The platform uses IPFS for storage, integrates AI-powered infringement detection (Yakoa), and offers transfer and gifting of IP assets with full on-chain provenance.
+Fufu is a decentralized intellectual property (IP) management platform built on **BSC Testnet** (BNB Chain). Creators can register IP assets as token-bound accounts (ERC-6551), mint licenses with programmable terms and royalties, receive and distribute revenue on-chain, and resolve disputes through an arbitration system. The platform uses IPFS for storage, integrates AI-powered infringement detection (Yakoa), and offers transfer and gifting of IP assets with full on-chain provenance.
 
-**Tech stack:** React 18, TypeScript, Vite, Thirdweb SDK (frontend); Node.js, Express, Viem (backend); Solidity, Hardhat, Hardhat Ignition (contracts); Creditcoin Testnet; IPFS/Pinata; Yakoa.
+**Tech stack:** React 18, TypeScript, Vite, Thirdweb SDK (frontend); Node.js, Express, Viem (backend); Solidity, Hardhat, Hardhat Ignition (contracts); BSC Testnet; IPFS/Pinata; Yakoa.
 
 ---
 

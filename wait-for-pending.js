@@ -14,20 +14,20 @@ const account = privateKeyToAccount(`0x${deployerPrivateKey.replace(/^0x/, '')}`
 
 const publicClient = createPublicClient({
   chain: {
-    id: 102031,
-    name: 'Creditcoin Testnet',
-    nativeCurrency: { name: 'CTC', symbol: 'CTC', decimals: 18 },
+    id: 97,
+    name: 'BNB Smart Chain Testnet',
+    nativeCurrency: { name: 'BNB', symbol: 'tBNB', decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://rpc.cc3-testnet.creditcoin.network'] },
+      default: { http: ['https://data-seed-prebsc-1-s1.binance.org:8545/'] },
     },
   },
-  transport: http('https://rpc.cc3-testnet.creditcoin.network'),
+  transport: http('https://data-seed-prebsc-1-s1.binance.org:8545/'),
 });
 
 async function waitForPendingTransactions() {
   try {
     console.log('🔍 Checking deployer account:', account.address);
-    console.log('💡 Check transactions at: https://creditcoin-testnet.blockscout.com/address/' + account.address);
+    console.log('💡 Check transactions at: https://testnet.bscscan.com/address/' + account.address);
     console.log('');
     
     let hasPending = true;
@@ -67,7 +67,7 @@ async function waitForPendingTransactions() {
       console.log('');
       console.log('⚠️  Still have pending transactions after waiting.');
       console.log('   You may need to wait longer or check the explorer manually.');
-      console.log(`   https://creditcoin-testnet.blockscout.com/address/${account.address}`);
+      console.log(`   https://testnet.bscscan.com/address/${account.address}`);
     }
   } catch (error) {
     console.error('❌ Error:', error.message);

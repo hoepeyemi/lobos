@@ -1,10 +1,10 @@
-# Creditcoin IP Management Backend
+# BNB Chain IP Management Backend
 
-This backend service provides IP (Intellectual Property) management functionality on the Creditcoin testnet using the Fufu smart contract.
+This backend service provides IP (Intellectual Property) management functionality on **BSC Testnet** using the Fufu smart contract.
 
 ## Features
 
-- **IP Registration**: Register IP assets on Creditcoin testnet using Fufu contract
+- **IP Registration**: Register IP assets on BSC Testnet using Fufu contract
 - **License Minting**: Mint licenses for IP assets with customizable terms
 - **License Validation**: Enforces one license per IP asset (prevents duplicate licenses)
 - **IPFS Integration**: Upload metadata to IPFS for decentralized storage
@@ -18,7 +18,7 @@ Create a `.env` file in the backend directory:
 
 ```env
 WALLET_PRIVATE_KEY=your_private_key_here
-RPC_PROVIDER_URL=https://rpc.cc3-testnet.creditcoin.network
+RPC_PROVIDER_URL=https://data-seed-prebsc-1-s1.binance.org:8545/
 NFT_CONTRACT_ADDRESS=optional_nft_contract_address
 ```
 
@@ -58,11 +58,11 @@ NFT_CONTRACT_ADDRESS=optional_nft_contract_address
 
 ## Network Configuration
 
-- **Network**: Creditcoin Testnet
-- **Chain ID**: 102031
-- **RPC URL**: https://rpc.cc3-testnet.creditcoin.network
-- **Explorer**: https://creditcoin-testnet.blockscout.com/
-- **Native Token**: CTC
+- **Network**: BSC Testnet (Chapel)
+- **Chain ID**: 97
+- **RPC URL**: https://data-seed-prebsc-1-s1.binance.org:8545/
+- **Explorer**: https://testnet.bscscan.com/
+- **Native Token**: tBNB (testnet)
 
 ## Smart Contracts
 
@@ -97,8 +97,8 @@ The backend includes automatic retry logic for blockchain transactions:
 
 ## Key Features
 
-1. **Network**: Creditcoin Testnet (Chain ID: 102031)
-2. **Token**: Using native CTC token for transactions
+1. **Network**: BSC Testnet (Chain ID: 97)
+2. **Token**: Using native tBNB for transactions (testnet)
 3. **Contracts**: Fufu contract for IP management
 4. **License Validation**: Enforces one license per IP asset
 5. **Transaction Reliability**: Automatic retry with nonce management

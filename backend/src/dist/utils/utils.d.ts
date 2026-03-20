@@ -40,6 +40,6 @@ export interface LicensingConfig {
 }
 export declare const defaultLicensingConfig: LicensingConfig;
 export declare function convertRoyaltyPercentToTokens(royaltyPercent: number): number;
-export declare function getCreditcoinExplorerUrl(txHash: string): string;
-export declare function getCreditcoinAddressExplorerUrl(address: string): string;
+export declare function getBnbChainExplorerUrl(txHash: string): string;
+export declare function getBnbChainAddressExplorerUrl(address: string): string;
 //# sourceMappingURL=utils.d.ts.map

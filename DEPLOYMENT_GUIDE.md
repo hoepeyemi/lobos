@@ -1,5 +1,7 @@
 # Contract Deployment Guide
 
+> **BSC Testnet:** The `ignition/deployments/chain-97/` folder is keyed by chain ID. **Deploy fresh contracts on BSC Testnet** and update `app/src/deployed_addresses.json` before relying on addresses in production.
+
 ## Current Contract Status
 
 The application is currently using the V2 contract:
@@ -24,14 +26,34 @@ The application is currently using the V2 contract:
    DEPLOYER_PRIVATE_KEY=your_private_key_here
    ```
 
-### Deploy to Creditcoin Testnet
+### Deploy to BSC Testnet (Chapel, chain ID 97)
+
+**Run all deploy commands from the repository root** (the folder that contains `hardhat.config.ts` and the `ignition/` directory). If you run from `backend/`, `app/`, or another subfolder, Hardhat will fail with *Could not find a module file* because `ignition/modules/ModredIP.ts` is resolved relative to your current directory.
+
+#### IGN900: deployment chain cannot be changed
+
+If you see **`IGN900: The deployment's chain cannot be changed between runs`** (e.g. a previous run used Creditcoin `102031` but you now deploy to BSC testnet `97`), Ignition’s saved state under `ignition/deployments/chain-*` no longer matches the network. Fix it by either:
+
+- **Recommended:** wipe state and deploy again:
+  ```bash
+  npm run deploy:modred:bsc-testnet:reset
+  ```
+  (`--reset` clears Ignition’s deployment journal for that module run.)
+
+- **Or** delete the folder for the target chain (e.g. `ignition/deployments/chain-97`) and run a normal deploy again.
 
 1. **Deploy using Hardhat Ignition:**
    ```bash
-   npx hardhat ignition deploy ignition/modules/ModredIP.ts --network creditcoinTestnet
+   cd /path/to/lobos   # project root
+   npx hardhat ignition deploy ./ignition/modules/ModredIP.ts --network bscTestnet
    ```
+   Or use the npm script (also from project root):
+   ```bash
+   npm run deploy:modred:bsc-testnet
+   ```
+   For BSC mainnet: `--network bsc` (chain ID 56).
 
-2. **After deployment**, update `app/src/deployed_addresses.json` (or run `yarn install` in `app/` to copy from `ignition/deployments/chain-102031/`):
+2. **After deployment**, update `app/src/deployed_addresses.json` (or run `yarn install` in `app/` to copy from `ignition/deployments/chain-97/`):
    ```json
    {
      "ModredIPModule#ERC6551Account": "0x...",
@@ -42,14 +64,14 @@ The application is currently using the V2 contract:
    
    **Note**: The key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Fufu".
 
-3. **Verify the contract** (optional):
+3. **Verify the contract** (optional; set `BSCSCAN_API_KEY` in Hardhat vars or replace placeholder in `hardhat.config.ts`):
    ```bash
-   npx hardhat verify --network creditcoinTestnet DEPLOYED_ADDRESS "REGISTRY_ADDRESS" "ACCOUNT_IMPL_ADDRESS" 102031 "PLATFORM_FEE_COLLECTOR"
+   npx hardhat verify --network bscTestnet DEPLOYED_ADDRESS "REGISTRY_ADDRESS" "ACCOUNT_IMPL_ADDRESS" 97 "PLATFORM_FEE_COLLECTOR"
    ```
 
 ### Deployment Steps
 
-1. Make sure you have CTC tokens in your deployer wallet for gas fees
+1. Make sure you have testnet tBNB in your deployer wallet for gas fees ([faucet](https://testnet.bnbchain.org/faucet-smart))
 2. Run the deployment command above
 3. Copy the deployed contract address from the output
 4. Update `deployed_addresses.json` with the new address
@@ -73,7 +95,7 @@ If you just want to test IPFS uploads without contract registration:
 
 To check if a contract has the `registerIP` function:
 
-1. Visit: https://creditcoin-testnet.blockscout.com/address/CONTRACT_ADDRESS
+1. Visit: https://testnet.bscscan.com/address/CONTRACT_ADDRESS
 2. Go to the "Contract" tab
 3. Check the "Read Contract" or "Write Contract" section
 4. Look for `registerIP` function

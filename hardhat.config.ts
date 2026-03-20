@@ -15,51 +15,51 @@ const config: HardhatUserConfig = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 1, // Minimize deployment bytecode size (fits EIP-170 24KB limit on Creditcoin)
+        runs: 1, // Minimize deployment bytecode size (fits EIP-170 24KB limit on many networks)
       },
     },
   },
 
   networks: {
-    creditcoinMainnet: {
-      url: "https://mainnet3.creditcoin.network",
+    bsc: {
+      url: "https://bsc-dataseed.binance.org/",
       accounts: [deployerPrivateKey],
-      timeout: 120000, // 120 seconds
+      chainId: 56,
+      timeout: 120000,
     },
-    creditcoinTestnet: {
-      url: "https://rpc.cc3-testnet.creditcoin.network",
+    bscTestnet: {
+      url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
       accounts: [deployerPrivateKey],
-      timeout: 120000, // 120 seconds
-      gas: 30_000_000, // Creditcoin may need explicit gas for large contract deploys
+      chainId: 97,
+      timeout: 120000,
+      gas: 30_000_000,
     },
   },
   etherscan: {
     apiKey: {
-      creditcoinMainnet: "YOU_CAN_COPY_ME",
-      creditcoinTestnet: "YOU_CAN_COPY_ME",
+      bsc: "YOUR_BSCSCAN_API_KEY",
+      bscTestnet: "YOUR_BSCSCAN_API_KEY",
     },
     customChains: [
       {
-        network: "creditcoinMainnet",
-        chainId: 102030,
+        network: "bsc",
+        chainId: 56,
         urls: {
-          apiURL: "https://creditcoin.blockscout.com/api",
-          browserURL: "https://creditcoin.blockscout.com/",
+          apiURL: "https://api.bscscan.com/api",
+          browserURL: "https://bscscan.com/",
         },
       },
       {
-        network: "creditcoinTestnet",
-        chainId: 102031,
+        network: "bscTestnet",
+        chainId: 97,
         urls: {
-          apiURL: "https://creditcoin-testnet.blockscout.com/api",
-          browserURL: "https://creditcoin-testnet.blockscout.com/",
+          apiURL: "https://api-testnet.bscscan.com/api",
+          browserURL: "https://testnet.bscscan.com/",
         },
       },
     ],
   },
   sourcify: {
-    // Disabled by default
-    // Doesn't need an API key
     enabled: false,
   },
 };

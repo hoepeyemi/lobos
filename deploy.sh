@@ -1,9 +1,14 @@
 #!/bin/bash
 
-# Contract Deployment Script for Creditcoin Testnet
+# Contract deployment for BSC Testnet (chain 97). Run from repo root (directory with hardhat.config.ts).
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR" || exit 1
+
 # Make sure you have DEPLOYER_PRIVATE_KEY set in your environment or .env file
 
-echo "🚀 Deploying contract to Creditcoin Testnet..."
+echo "🚀 Deploying ModredIP to BSC Testnet (chain 97)..."
+echo "   (working directory: $SCRIPT_DIR)"
 echo ""
 
 # Check if DEPLOYER_PRIVATE_KEY is set
@@ -19,7 +24,7 @@ echo ""
 
 # Deploy the contract
 echo "📦 Deploying contract..."
-npx hardhat ignition deploy ignition/modules/ModredIP.ts --network creditcoinTestnet
+npx hardhat ignition deploy ./ignition/modules/ModredIP.ts --network bscTestnet
 
 echo ""
 echo "✅ Deployment complete!"

@@ -27,7 +27,7 @@ app.use('/api/infringement', infringementRoutes);
 
 // Default route (optional)
 app.get('/', (_req, res) => {
-  res.send('✅ Yakoa + Creditcoin backend is running!');
+  res.send('✅ Yakoa + BNB Chain backend is running!');
 });
 
 // Start Server

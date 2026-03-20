@@ -154,7 +154,7 @@ export const checkExistingLicenses = async (
     }
 };
 
-export const registerIpWithCreditcoin = async (
+export const registerIpWithBnbChain = async (
     ipHash: string,
     metadata: string,
     isEncrypted: boolean,
@@ -169,7 +169,7 @@ export const registerIpWithCreditcoin = async (
         console.log('metadata:', metadata);
         console.log('isEncrypted:', isEncrypted);
 
-        // Register IP on ModredIP contract. Try simulation first; some RPCs (e.g. Creditcoin) return
+        // Register IP on ModredIP contract. Try simulation first; some RPCs return
         // "returned no data" for eth_call even when the transaction would succeed, so we fall back
         // to sending the transaction directly.
         let hash: Hash | undefined;
@@ -190,7 +190,7 @@ export const registerIpWithCreditcoin = async (
             const errMsg = (simulateOrWriteError?.message || simulateOrWriteError?.shortMessage || '').toLowerCase();
             const isNoData = errMsg.includes('returned no data') || (errMsg.includes('0x') && errMsg.includes('no data'));
             if (isNoData) {
-                console.log('⚠️ Simulation returned no data (common on Creditcoin). Submitting transaction directly...');
+                console.log('⚠️ Simulation returned no data. Submitting transaction directly...');
                 try {
                     hash = await walletClient.writeContract({
                         address: modredIpContractAddress,
@@ -299,7 +299,7 @@ export const registerIpWithCreditcoin = async (
     throw lastError;
 };
 
-export const mintLicenseOnCreditcoin = async (
+export const mintLicenseOnBnbChain = async (
     tokenId: number,
     royaltyPercentage: number,
     duration: number,

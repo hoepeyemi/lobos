@@ -30,30 +30,27 @@ type ContractAddresses = {
 
 const CONTRACT_ADDRESSES = CONTRACT_ADDRESS_JSON as ContractAddresses;
 
-/** Logo & favicon: app/public/fufu.png (Vite serves public assets at root) */
-const LOGO_FAVICON_URL = "/fufu.png";
-
-// Creditcoin Testnet chain definition
-const creditcoinTestnet = {
-  id: 102031,
-  name: "Creditcoin Testnet",
+// BNB Smart Chain — BSC Testnet (Chapel, chain ID 97)
+const bnbChain = {
+  id: 97,
+  name: "BNB Smart Chain Testnet",
   nativeCurrency: {
-    name: "CTC",
-    symbol: "CTC",
+    name: "BNB",
+    symbol: "tBNB",
     decimals: 18,
   },
   rpcUrls: {
     default: {
-      http: ["https://rpc.cc3-testnet.creditcoin.network"],
+      http: ["https://data-seed-prebsc-1-s1.binance.org:8545"],
     },
     public: {
-      http: ["https://rpc.cc3-testnet.creditcoin.network"],
+      http: ["https://data-seed-prebsc-1-s1.binance.org:8545"],
     },
   },
   blockExplorers: {
     default: {
-      name: "Creditcoin Testnet Explorer",
-      url: "https://creditcoin-testnet.blockscout.com/",
+      name: "BscScan",
+      url: "https://testnet.bscscan.com",
     },
   },
   testnet: true,
@@ -1064,7 +1061,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -1381,7 +1378,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
           client: thirdwebClient,
-          chain: defineChain(creditcoinTestnet.id),
+          chain: defineChain(bnbChain.id),
         address: contractAddress,
       });
 
@@ -1608,8 +1605,8 @@ export default function App({ thirdwebClient }: AppProps) {
         file_extension: ipFile?.name?.split('.').pop() || 'unknown',
         upload_timestamp: new Date().toISOString(),
         // Blockchain metadata
-        network: 'creditcoin',
-        chain_id: '102031',
+        network: 'bnb-testnet',
+        chain_id: '97',
         contract_address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
         // Infringement detection metadata
         monitoring_enabled: true,
@@ -1682,7 +1679,7 @@ export default function App({ thirdwebClient }: AppProps) {
       // Show success notification
       if (result.testing) {
         notifySuccess('IP Asset Metadata Created (Testing Mode)', 
-          `IPFS upload successful!\nIP Hash: ${result.creditcoin.ipHash}\n\nNote: Contract registration was skipped (testing mode).`
+          `IPFS upload successful!\nIP Hash: ${result.bnbChain.ipHash}\n\nNote: Contract registration was skipped (testing mode).`
         );
       } else if (result.warning) {
         // Handle case where transaction was submitted but hash couldn't be retrieved
@@ -1691,11 +1688,11 @@ export default function App({ thirdwebClient }: AppProps) {
         );
       } else {
       notifySuccess('IP Asset Registered', 
-        `Successfully registered IP asset!\nTransaction: ${result.creditcoin.txHash}\nIP Asset ID: ${result.creditcoin.ipAssetId}`,
+        `Successfully registered IP asset!\nTransaction: ${result.bnbChain.txHash}\nIP Asset ID: ${result.bnbChain.ipAssetId}`,
         {
           action: {
             label: 'View Transaction',
-            onClick: () => window.open(`https://creditcoin-testnet.blockscout.com/tx/${result.creditcoin.txHash}`, '_blank')
+            onClick: () => window.open(`https://testnet.bscscan.com/tx/${result.bnbChain.txHash}`, '_blank')
           }
         }
       );
@@ -1825,7 +1822,7 @@ export default function App({ thirdwebClient }: AppProps) {
         {
           action: {
             label: 'View Transaction',
-            onClick: () => window.open(`https://creditcoin-testnet.blockscout.com/tx/${result.data.txHash}`, '_blank')
+            onClick: () => window.open(`https://testnet.bscscan.com/tx/${result.data.txHash}`, '_blank')
           }
         }
       );
@@ -1894,22 +1891,22 @@ export default function App({ thirdwebClient }: AppProps) {
       // Show breakdown in notification
       if (royaltyBreakdown) {
         const breakdownText = [
-          `Total: ${royaltyBreakdown.totalAmount} CTC`,
-          `Platform Fee: ${royaltyBreakdown.platformFee.toFixed(6)} CTC (2.5%)`,
+          `Total: ${royaltyBreakdown.totalAmount} tBNB`,
+          `Platform Fee: ${royaltyBreakdown.platformFee.toFixed(6)} tBNB (2.5%)`,
           ...royaltyBreakdown.licenseRoyalties.map(
-            lr => `License ${lr.licenseId}: ${lr.amount.toFixed(6)} CTC (${lr.royaltyPercentage}%)`
+            lr => `License ${lr.licenseId}: ${lr.amount.toFixed(6)} tBNB (${lr.royaltyPercentage}%)`
           ),
-          `IP Owner: ${royaltyBreakdown.ipOwnerShare.toFixed(6)} CTC`,
+          `IP Owner: ${royaltyBreakdown.ipOwnerShare.toFixed(6)} tBNB`,
         ].join('\n');
         notifyInfo('Payment Breakdown', breakdownText);
       }
       
-      notifyInfo('Processing Payment', `Paying ${paymentAmount} CTC in revenue...`);
+      notifyInfo('Processing Payment', `Paying ${paymentAmount} tBNB in revenue...`);
 
         const contract = getContract({
         abi: FUFU_ABI,
           client: thirdwebClient,
-          chain: defineChain(creditcoinTestnet.id),
+          chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
         });
 
@@ -1927,12 +1924,12 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
           client: thirdwebClient,
-          chain: defineChain(creditcoinTestnet.id),
+          chain: defineChain(bnbChain.id),
           transactionHash: transaction.transactionHash,
         });
 
       // Show success notification
-      notifySuccess('Payment Successful', `Successfully paid ${paymentAmount} CTC in revenue!`);
+      notifySuccess('Payment Successful', `Successfully paid ${paymentAmount} tBNB in revenue!`);
 
       // Reset form
       setPaymentAmount("");
@@ -1990,7 +1987,7 @@ export default function App({ thirdwebClient }: AppProps) {
         const contract = getContract({
         abi: FUFU_ABI,
           client: thirdwebClient,
-          chain: defineChain(creditcoinTestnet.id),
+          chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
         });
 
@@ -2007,13 +2004,13 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
             // Show success notification with amount
       const claimedAmount = accumulatedRoyalties.get(claimTokenId) || 0n;
-      notifySuccess('Royalties Claimed', `Successfully claimed ${formatEther(claimedAmount)} CTC!`);
+      notifySuccess('Royalties Claimed', `Successfully claimed ${formatEther(claimedAmount)} tBNB!`);
 
       // Update accumulated royalties
       setAccumulatedRoyalties((prev) => {
@@ -2072,7 +2069,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2089,7 +2086,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2123,12 +2120,12 @@ export default function App({ thirdwebClient }: AppProps) {
 
     try {
       setLoading(true);
-      notifyInfo('Registering Arbitrator', `Registering with ${minArbitratorStake} CTC stake...`);
+      notifyInfo('Registering Arbitrator', `Registering with ${minArbitratorStake} tBNB stake...`);
 
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2146,7 +2143,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2173,7 +2170,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2212,7 +2209,7 @@ export default function App({ thirdwebClient }: AppProps) {
         return;
       }
 
-      notifyInfo('Unstaking Arbitrator', `Withdrawing ${formatEther(stake)} CTC stake...`);
+      notifyInfo('Unstaking Arbitrator', `Withdrawing ${formatEther(stake)} tBNB stake...`);
 
       const preparedCall = await prepareContractCall({
         contract,
@@ -2227,11 +2224,11 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
-      notifySuccess('Stake Withdrawn', `Successfully withdrew ${formatEther(stake)} CTC! You are no longer an active arbitrator.`);
+      notifySuccess('Stake Withdrawn', `Successfully withdrew ${formatEther(stake)} tBNB! You are no longer an active arbitrator.`);
       await loadArbitrationData();
     } catch (error: any) {
       console.error("Error unstaking arbitrator:", error);
@@ -2274,7 +2271,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2291,7 +2288,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2331,7 +2328,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2348,7 +2345,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2409,7 +2406,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2479,7 +2476,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2516,7 +2513,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2533,7 +2530,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2571,7 +2568,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2588,7 +2585,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         transactionHash: transaction.transactionHash,
       });
 
@@ -2611,7 +2608,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: FUFU_ABI,
         client: thirdwebClient,
-        chain: defineChain(creditcoinTestnet.id),
+        chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
       });
 
@@ -2956,7 +2953,7 @@ export default function App({ thirdwebClient }: AppProps) {
               <ConnectButton
                 client={thirdwebClient}
                 wallets={wallets}
-                chain={defineChain(creditcoinTestnet.id)}
+                chain={defineChain(bnbChain.id)}
               />
             </div>
           </div>
@@ -2987,7 +2984,7 @@ export default function App({ thirdwebClient }: AppProps) {
                 <ConnectButton
                   client={thirdwebClient}
                   wallets={wallets}
-                  chain={defineChain(creditcoinTestnet.id)}
+                  chain={defineChain(bnbChain.id)}
                   connectButton={{
                     label: "Connect Wallet",
                     className: "connect-wallet-btn"
@@ -3214,7 +3211,7 @@ export default function App({ thirdwebClient }: AppProps) {
             <ConnectButton
               client={thirdwebClient}
               wallets={wallets}
-              chain={defineChain(creditcoinTestnet.id)}
+              chain={defineChain(bnbChain.id)}
             />
           </div>
         </div>
@@ -3752,7 +3749,7 @@ export default function App({ thirdwebClient }: AppProps) {
             </div>
             
             <div className="form-group">
-              <label className="form-label">💰 Amount (CTC)</label>
+              <label className="form-label">💰 Amount (tBNB)</label>
               <input
                 type="number"
                 className="form-input"
@@ -3801,7 +3798,7 @@ export default function App({ thirdwebClient }: AppProps) {
                     fontWeight: 600
                   }}>
                     <span style={{ color: '#1e293b' }}>Total Payment:</span>
-                    <span style={{ color: '#1e293b' }}>{royaltyBreakdown.totalAmount} CTC</span>
+                    <span style={{ color: '#1e293b' }}>{royaltyBreakdown.totalAmount} tBNB</span>
                   </div>
 
                   {/* Platform Fee */}
@@ -3813,7 +3810,7 @@ export default function App({ thirdwebClient }: AppProps) {
                     borderRadius: '4px'
                   }}>
                     <span style={{ color: '#1e293b' }}>🏛️ Platform Fee (2.5%):</span>
-                    <span style={{ color: '#1e293b' }}>{royaltyBreakdown.platformFee.toFixed(6)} CTC</span>
+                    <span style={{ color: '#1e293b' }}>{royaltyBreakdown.platformFee.toFixed(6)} tBNB</span>
                   </div>
 
                   {/* Remaining After Fee */}
@@ -3829,7 +3826,7 @@ export default function App({ thirdwebClient }: AppProps) {
                     marginBottom: '0.25rem'
                   }}>
                     <span style={{ color: '#1e293b' }}>💰 Available for Distribution:</span>
-                    <span style={{ color: '#1e293b' }}>{royaltyBreakdown.remainingAfterFee.toFixed(6)} CTC</span>
+                    <span style={{ color: '#1e293b' }}>{royaltyBreakdown.remainingAfterFee.toFixed(6)} tBNB</span>
                   </div>
 
                   {/* License Royalties */}
@@ -3862,7 +3859,7 @@ export default function App({ thirdwebClient }: AppProps) {
                             </span>
                           </span>
                           <span style={{ fontWeight: 500, color: '#1e293b' }}>
-                            {lr.amount.toFixed(6)} CTC
+                            {lr.amount.toFixed(6)} tBNB
                           </span>
                         </div>
                       ))}
@@ -3881,7 +3878,7 @@ export default function App({ thirdwebClient }: AppProps) {
                     borderTop: '2px solid rgba(0,0,0,0.1)'
                   }}>
                     <span style={{ color: '#1e293b' }}>👤 IP Owner Share:</span>
-                    <span style={{ color: '#1e293b' }}>{royaltyBreakdown.ipOwnerShare.toFixed(6)} CTC</span>
+                    <span style={{ color: '#1e293b' }}>{royaltyBreakdown.ipOwnerShare.toFixed(6)} tBNB</span>
                   </div>
 
                   {/* Summary */}
@@ -3978,7 +3975,7 @@ export default function App({ thirdwebClient }: AppProps) {
                         ? '#155724'
                         : '#0c5460'
                     }}>
-                      {formatEther(accumulatedRoyalties.get(claimTokenId) || 0n)} CTC
+                      {formatEther(accumulatedRoyalties.get(claimTokenId) || 0n)} tBNB
                     </span>
                   </div>
                   
@@ -4084,7 +4081,7 @@ export default function App({ thirdwebClient }: AppProps) {
                               }}>
                                 <strong>ℹ️ Your Arbitrator Status:</strong>
                                 <div style={{ marginTop: '0.5rem' }}>
-                                  <div>💰 Stake: {formatEther(userStake)} CTC</div>
+                                  <div>💰 Stake: {formatEther(userStake)} tBNB</div>
                                   <div>⚖️ Active Disputes: {userActiveDisputes}</div>
                                   <div>✅ Status: Active</div>
                                   {userActiveDisputes > 0 && (
@@ -4100,7 +4097,7 @@ export default function App({ thirdwebClient }: AppProps) {
                               onClick={unstakeArbitrator} 
                               disabled={loading || !account?.address || userActiveDisputes > 0}
                             >
-                              {loading ? '⏳ Unstaking...' : `💸 Unstake (${formatEther(userStake)} CTC)`}
+                              {loading ? '⏳ Unstaking...' : `💸 Unstake (${formatEther(userStake)} tBNB)`}
                             </button>
                           </>
                         );
@@ -4108,7 +4105,7 @@ export default function App({ thirdwebClient }: AppProps) {
                         return (
                           <>
                     <div className="form-group">
-                      <label className="form-label">💰 Minimum Stake (CTC)</label>
+                      <label className="form-label">💰 Minimum Stake (tBNB)</label>
                       <input
                         type="number"
                         className="form-input"
@@ -4317,7 +4314,7 @@ export default function App({ thirdwebClient }: AppProps) {
                                     {(arb.activeDisputes || 0) >= 5 && ' ⚠️ (High Workload)'}
                                     {(arb.activeDisputes || 0) >= 3 && (arb.activeDisputes || 0) < 5 && ' ⚡ (Moderate)'}
                                   </div>
-                                  <div>💰 Stake: {formatEther(arb.stake)} CTC</div>
+                                  <div>💰 Stake: {formatEther(arb.stake)} tBNB</div>
                                 </div>
                               </div>
                             );
@@ -4647,7 +4644,7 @@ export default function App({ thirdwebClient }: AppProps) {
                               </div>
                               <div className="card-field">
                                 <span className="card-field-label">Stake</span>
-                                <span className="card-field-value">💰 {formatEther(arb.stake)} CTC</span>
+                                <span className="card-field-value">💰 {formatEther(arb.stake)} tBNB</span>
                               </div>
                               <div className="card-field">
                                 <span className="card-field-label">Reputation</span>
@@ -4785,7 +4782,7 @@ export default function App({ thirdwebClient }: AppProps) {
                         maxWidth: '100%',
                         display: 'inline-block'
                       }}>
-                        💰 {parseFloat(formatEther(asset.totalRevenue)).toFixed(6)} CTC
+                        💰 {parseFloat(formatEther(asset.totalRevenue)).toFixed(6)} tBNB
                       </span>
                     </div>
                     

@@ -6,13 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.defaultLicensingConfig = exports.RoyaltyPolicyLRP = exports.RoyaltyPolicyLAP = exports.NonCommercialSocialRemixingTerms = exports.NonCommercialSocialRemixingTermsId = exports.NFTContractAddress = exports.WIP_TOKEN_ADDRESS = void 0;
 exports.createCommercialRemixTerms = createCommercialRemixTerms;
 exports.convertRoyaltyPercentToTokens = convertRoyaltyPercentToTokens;
-exports.getCreditcoinExplorerUrl = getCreditcoinExplorerUrl;
-exports.getCreditcoinAddressExplorerUrl = getCreditcoinAddressExplorerUrl;
+exports.getBnbChainExplorerUrl = getBnbChainExplorerUrl;
+exports.getBnbChainAddressExplorerUrl = getBnbChainAddressExplorerUrl;
 const viem_1 = require("viem");
 const dotenv_1 = __importDefault(require("dotenv"));
 const config_1 = require("./config");
 dotenv_1.default.config();
-// Use native CTC token as WIP_TOKEN_ADDRESS
+// Use native tBNB as WIP_TOKEN_ADDRESS
 exports.WIP_TOKEN_ADDRESS = config_1.NATIVE_TOKEN_ADDRESS;
 // Export contract addresses with appropriate defaults based on network
 exports.NFTContractAddress = process.env.NFT_CONTRACT_ADDRESS || viem_1.zeroAddress;
@@ -37,10 +37,10 @@ exports.NonCommercialSocialRemixingTerms = {
     currency: exports.WIP_TOKEN_ADDRESS,
     uri: 'https://github.com/piplabs/pil-document/blob/998c13e6ee1d04eb817aefd1fe16dfe8be3cd7a2/off-chain-terms/NCSR.json',
 };
-// Royalty policy addresses for Creditcoin
+// Royalty policy addresses (Story Protocol–style; verify for BNB Chain deployments)
 exports.RoyaltyPolicyLAP = '0xBe54FB168b3c982b7AaE60dB6CF75Bd8447b390E';
 exports.RoyaltyPolicyLRP = '0x9156e603C949481883B1d3355c6f1132D191fC41';
-// Commercial remix terms for Creditcoin
+// Commercial remix terms
 function createCommercialRemixTerms(terms) {
     return {
         transferable: true,
@@ -76,10 +76,9 @@ function convertRoyaltyPercentToTokens(royaltyPercent) {
     // there are 100,000,000 tokens total (100, but 6 decimals)
     return royaltyPercent * 1_000_000;
 }
-// Creditcoin-specific utility functions
-function getCreditcoinExplorerUrl(txHash) {
-    return `${config_1.networkInfo.blockExplorer}/tx/${txHash}`;
+function getBnbChainExplorerUrl(txHash) {
+    return `${config_1.networkInfo.blockExplorer}tx/${txHash}`;
 }
-function getCreditcoinAddressExplorerUrl(address) {
-    return `${config_1.networkInfo.blockExplorer}/address/${address}`;
+function getBnbChainAddressExplorerUrl(address) {
+    return `${config_1.networkInfo.blockExplorer}address/${address}`;
 }

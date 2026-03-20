@@ -131,7 +131,7 @@ contract ModredIP is ERC721, Ownable, ReentrancyGuard {
         address _accountImplementation,
         uint256 _chainId,
         address _platformFeeCollector
-    ) ERC721("ModredIP", "CTC") Ownable(msg.sender) {
+    ) ERC721("ModredIP", "MOD") Ownable(msg.sender) {
         registry = ERC6551Registry(_registry);
         accountImplementation = _accountImplementation;
         chainId = _chainId;

@@ -1,4 +1,4 @@
-import { mintLicenseOnCreditcoin, checkExistingLicenses } from './storyService';
+import { mintLicenseOnBnbChain, checkExistingLicenses } from './storyService';
 import { Address } from 'viem';
 import { BLOCK_EXPLORER_URL } from '../utils/config';
 import { convertBigIntsToStrings } from '../utils/bigIntSerializer';
@@ -32,7 +32,7 @@ export const mintLicense = async (licenseRequest: LicenseRequest) => {
             txHash,
             blockNumber,
             explorerUrl
-        } = await mintLicenseOnCreditcoin(
+        } = await mintLicenseOnBnbChain(
             licenseRequest.tokenId,
             licenseRequest.royaltyPercentage,
             licenseRequest.duration,
@@ -46,7 +46,7 @@ export const mintLicense = async (licenseRequest: LicenseRequest) => {
             txHash,
             blockNumber,
             explorerUrl,
-            message: 'License minted successfully on Creditcoin'
+            message: 'License minted successfully on BNB Chain'
         };
 
         // Convert any BigInt values to strings for JSON serialization
@@ -83,7 +83,7 @@ export const mintLicense = async (licenseRequest: LicenseRequest) => {
         return {
             success: false,
             error: error instanceof Error ? error.message : 'Unknown error occurred',
-            message: 'Failed to mint license on Creditcoin'
+            message: 'Failed to mint license on BNB Chain'
         };
     }
 };

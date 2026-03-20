@@ -31,6 +31,10 @@ const handleLicenseMinting = async (req, res) => {
                     explorerUrl: result.explorerUrl
                 }
             };
+            // Include warning if present
+            if (result.warning) {
+                responseData.warning = result.warning;
+            }
             return res.status(200).json((0, bigIntSerializer_1.convertBigIntsToStrings)(responseData));
         }
         else {

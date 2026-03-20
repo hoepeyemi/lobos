@@ -12,20 +12,20 @@ const account = privateKeyToAccount(`0x${deployerPrivateKey.replace(/^0x/, '')}`
 
 const publicClient = createPublicClient({
   chain: {
-    id: 102031,
-    name: 'Creditcoin Testnet',
-    nativeCurrency: { name: 'CTC', symbol: 'CTC', decimals: 18 },
+    id: 97,
+    name: 'BNB Smart Chain Testnet',
+    nativeCurrency: { name: 'BNB', symbol: 'tBNB', decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://rpc.cc3-testnet.creditcoin.network'] },
+      default: { http: ['https://data-seed-prebsc-1-s1.binance.org:8545/'] },
     },
   },
-  transport: http('https://rpc.cc3-testnet.creditcoin.network'),
+  transport: http('https://data-seed-prebsc-1-s1.binance.org:8545/'),
 });
 
 async function checkDeploymentStatus() {
   try {
     console.log('🔍 Checking deployment status for:', account.address);
-    console.log('💡 Explorer: https://creditcoin-testnet.blockscout.com/address/' + account.address);
+    console.log('💡 Explorer: https://testnet.bscscan.com/address/' + account.address);
     console.log('');
     
     // Check nonce status
@@ -59,7 +59,7 @@ async function checkDeploymentStatus() {
       console.log('');
       console.log('💡 Solutions:');
       console.log('   1. Wait 2-5 minutes for transactions to confirm');
-      console.log('   2. Check explorer: https://creditcoin-testnet.blockscout.com/address/' + account.address);
+      console.log('   2. Check explorer: https://testnet.bscscan.com/address/' + account.address);
       console.log('   3. If transactions are confirmed, you can clear the journal and continue');
       console.log('   4. If transactions are stuck, you may need to wait longer');
     } else {

@@ -4,29 +4,30 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-// Creditcoin Testnet configuration
-const creditcoinTestnet: Chain = {
-  id: 102031,
-  name: 'Creditcoin Testnet',
+// BNB Smart Chain — BSC Testnet (Chapel)
+const bnbChain: Chain = {
+  id: 97,
+  name: 'BNB Smart Chain Testnet',
   nativeCurrency: {
-    name: 'CTC',
-    symbol: 'CTC',
+    name: 'BNB',
+    symbol: 'tBNB',
     decimals: 18,
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc.cc3-testnet.creditcoin.network'],
+      http: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
     },
     public: {
-      http: ['https://rpc.cc3-testnet.creditcoin.network'],
+      http: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
     },
   },
   blockExplorers: {
     default: {
-      name: 'Creditcoin Testnet Explorer',
-      url: 'https://creditcoin-testnet.blockscout.com/',
+      name: 'BscScan',
+      url: 'https://testnet.bscscan.com/',
     },
   },
+  testnet: true,
 }
 
 interface NetworkConfig {
@@ -36,31 +37,36 @@ interface NetworkConfig {
     nativeTokenAddress: Address
 }
 
-// Network configuration (Creditcoin Testnet)
 const networkConfig: NetworkConfig = {
-    rpcProviderUrl: 'https://rpc.cc3-testnet.creditcoin.network',
-    blockExplorer: 'https://creditcoin-testnet.blockscout.com/',
-    chain: creditcoinTestnet,
-    nativeTokenAddress: '0x0000000000000000000000000000000000000000' as Address, // Native CTC token
+    rpcProviderUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+    blockExplorer: 'https://testnet.bscscan.com/',
+    chain: bnbChain,
+    nativeTokenAddress: '0x0000000000000000000000000000000000000000' as Address, // Native tBNB (testnet faucet)
 }
 
-// Use RPC_PROVIDER_URL only if it points to Creditcoin; otherwise always use Creditcoin RPC
-// (avoids sending tx to wrong network when .env has an old URL like Base Sepolia)
+// Use RPC_PROVIDER_URL when it clearly targets BNB Chain / BSC (mainnet or testnet)
 function getRpcUrl(): string {
     const env = process.env.RPC_PROVIDER_URL?.trim()
     if (!env) return networkConfig.rpcProviderUrl
-    if (env.toLowerCase().includes('creditcoin')) return env
+    const lower = env.toLowerCase()
+    if (
+        lower.includes('binance') ||
+        lower.includes('bsc') ||
+        lower.includes('bsc-dataseed') ||
+        lower.includes('prebsc') ||
+        lower.includes('testnet.bscscan')
+    ) {
+        return env
+    }
     return networkConfig.rpcProviderUrl
 }
 
-// Helper functions
 const validateEnvironmentVars = () => {
     if (!process.env.WALLET_PRIVATE_KEY) {
         throw new Error('WALLET_PRIVATE_KEY is required in .env file')
     }
 }
 
-// Initialize configuration
 validateEnvironmentVars()
 
 export const networkInfo = {
@@ -73,7 +79,7 @@ export const account: Account = privateKeyToAccount(`0x${process.env.WALLET_PRIV
 const baseConfig = {
     chain: networkInfo.chain,
     transport: http(networkInfo.rpcProviderUrl, {
-        timeout: 60000, // 60 seconds timeout
+        timeout: 60000,
         retryCount: 3,
         retryDelay: 1000,
     }),
@@ -85,6 +91,5 @@ export const walletClient = createWalletClient({
     account,
 }) as WalletClient
 
-// Export constants
 export const NATIVE_TOKEN_ADDRESS = networkInfo.nativeTokenAddress
 export const BLOCK_EXPLORER_URL = networkInfo.blockExplorer

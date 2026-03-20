@@ -15,12 +15,12 @@ const ModredIPModule = (0, modules_1.buildModule)("ModredIPModule", (m) => {
     // Deploy ModredIP contract with constructor arguments:
     // - registry address
     // - accountImplementation address
-    // - chainId (102031 for Creditcoin Testnet)
+    // - chainId (97 for BSC Testnet / Chapel)
     // - platformFeeCollector address (using deployer)
     const ModredIPContract = m.contract("ModredIP", [
         registry,
         accountImplementation,
-        102031, // Creditcoin Testnet chain ID
+        97, // BSC Testnet (Chapel)
         deployer // Platform fee collector
     ]);
     return {

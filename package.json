@@ -1,10 +1,13 @@
 {
   "name": "marketpulse",
   "version": "1.0.0",
-  "description": "bet platform on creditcoin",
+  "description": "bet platform on BNB Chain (BSC Testnet)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:modred:bsc-testnet": "hardhat ignition deploy ./ignition/modules/ModredIP.ts --network bscTestnet",
+    "deploy:modred:bsc-testnet:reset": "hardhat ignition deploy ./ignition/modules/ModredIP.ts --network bscTestnet --reset",
+    "deploy:modred:bsc-mainnet": "hardhat ignition deploy ./ignition/modules/ModredIP.ts --network bsc"
   },
   "author": "",
   "license": "ISC",

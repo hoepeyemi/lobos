@@ -1,7 +1,13 @@
-# Contract Deployment Script for Creditcoin Testnet (PowerShell)
+# Contract Deployment Script for BSC Testnet (PowerShell)
 # Make sure you have DEPLOYER_PRIVATE_KEY set in your environment
+#
+# Always chdir to repo root so ignition/modules/... resolves (works even if you launch this from backend/ or app/)
 
-Write-Host "🚀 Deploying ModredIP contract to Creditcoin Testnet..." -ForegroundColor Cyan
+$RepoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $RepoRoot
+
+Write-Host "🚀 Deploying ModredIP contract to BSC Testnet (chain 97)..." -ForegroundColor Cyan
+Write-Host "   (working directory: $RepoRoot)" -ForegroundColor DarkGray
 Write-Host ""
 
 # Check if DEPLOYER_PRIVATE_KEY is set
@@ -17,7 +23,7 @@ Write-Host ""
 
 # Deploy the contract
 Write-Host "📦 Deploying contract..." -ForegroundColor Yellow
-npx hardhat ignition deploy ignition/modules/ModredIP.ts --network creditcoinTestnet
+npx hardhat ignition deploy ./ignition/modules/ModredIP.ts --network bscTestnet
 
 Write-Host ""
 Write-Host "✅ Deployment complete!" -ForegroundColor Green

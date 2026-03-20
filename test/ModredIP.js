@@ -37,7 +37,7 @@ describe("ModredIP", function () {
         const modredIP = await hardhat_1.default.viem.deployContract("ModredIP", [
             registry.address,
             accountImplementation.address,
-            102031n, // Creditcoin Testnet chain ID
+            97n, // BSC Testnet (Chapel)
             feeCollector.account.address
         ]);
         const publicClient = await hardhat_1.default.viem.getPublicClient();

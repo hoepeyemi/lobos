@@ -1,6 +1,6 @@
 # Fufu Frontend
 
-A React-based frontend for the Fufu intellectual property management system on Creditcoin.
+A React-based frontend for the Fufu intellectual property management system on BSC Testnet (BNB Chain).
 
 ## Features
 
@@ -51,7 +51,7 @@ A React-based frontend for the Fufu intellectual property management system on C
 - **Instant Alerts**: Receive notifications when new infringements are detected
 
 ### 6. Arbitration System
-- **Register as Arbitrator**: Stake CTC to become an arbitrator
+- **Register as Arbitrator**: Stake tBNB to become an arbitrator
 - **Unstake**: Withdraw stake when no active disputes assigned
 - **Submit Decisions**: Vote on disputes (uphold or reject)
 - **Auto-Resolution**: Disputes resolve automatically when majority is clear
@@ -102,7 +102,7 @@ A React-based frontend for the Fufu intellectual property management system on C
 
 ### Paying Revenue
 1. Select the target IP Asset
-2. Enter the payment amount in CTC
+2. Enter the payment amount in tBNB
 3. **View Royalty Breakdown**: The system automatically calculates and displays:
    - Platform fee (2.5%)
    - Each license holder's share based on their royalty percentage
@@ -117,7 +117,7 @@ A React-based frontend for the Fufu intellectual property management system on C
 3. The system displays:
    - Your accumulated royalties (if any)
    - Your active licenses and their royalty rates
-   - Claimable amount in CTC
+   - Claimable amount in tBNB
 4. Click "Claim Royalties" (enabled only if you have claimable royalties)
 5. Confirm the transaction to receive your accumulated royalties
 
@@ -140,7 +140,7 @@ A React-based frontend for the Fufu intellectual property management system on C
 
 ## Technical Details
 
-- **Blockchain**: Creditcoin Testnet (Chain ID: 102031)
+- **Blockchain**: BSC Testnet (Chain ID: 97)
 - **Smart Contract**: ModredIP (Fufu)
 - **Wallet Integration**: Thirdweb SDK
 - **IPFS**: Used for storing IP content, metadata, and license terms

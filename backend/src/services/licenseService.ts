@@ -9,7 +9,7 @@ export interface LicenseRequest {
     duration: number;
     commercialUse: boolean;
     terms: string;
-    fufuContractAddress: Address;
+    lobosContractAddress: Address;
 }
 
 export const mintLicense = async (licenseRequest: LicenseRequest) => {
@@ -17,7 +17,7 @@ export const mintLicense = async (licenseRequest: LicenseRequest) => {
         // Check if a license already exists for this IP (tokenId)
         const hasExistingLicense = await checkExistingLicenses(
             licenseRequest.tokenId,
-            licenseRequest.fufuContractAddress
+            licenseRequest.lobosContractAddress
         );
 
         if (hasExistingLicense) {
@@ -38,7 +38,7 @@ export const mintLicense = async (licenseRequest: LicenseRequest) => {
             licenseRequest.duration,
             licenseRequest.commercialUse,
             licenseRequest.terms,
-            licenseRequest.fufuContractAddress
+            licenseRequest.lobosContractAddress
         );
 
         const result = {

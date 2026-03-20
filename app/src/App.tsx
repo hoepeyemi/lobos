@@ -148,9 +148,9 @@ const pinFileToIPFS = async (file: File): Promise<{
     // Add metadata
     const metadata = {
       name: file.name,
-      description: `Uploaded via Fufu frontend`,
+      description: `Uploaded via Lobos frontend`,
       attributes: {
-        uploadedBy: 'Fufu',
+        uploadedBy: 'Lobos',
         timestamp: new Date().toISOString(),
         fileType: file.type,
         fileSize: file.size
@@ -283,8 +283,8 @@ const wallets = [
   createWallet("global.safe"),
 ];
 
-// Fufu Contract ABI (simplified for the functions we need)
-const FUFU_ABI = [
+// ModredIP contract ABI (simplified for the functions we need)
+const MODRED_IP_ABI = [
   {
     inputs: [
       { name: "tokenId", type: "uint256" }
@@ -1059,7 +1059,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
     try {
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -1237,16 +1237,16 @@ export default function App({ thirdwebClient }: AppProps) {
       setBackendStatus(isConnected);
       
       if (!wasConnected && isConnected) {
-        notifySuccess('Backend Connected', 'Successfully connected to the Fufu backend service');
+        notifySuccess('Backend Connected', 'Successfully connected to the Lobos backend service');
       } else if (wasConnected && !isConnected) {
-        notifyError('Backend Disconnected', 'Lost connection to the Fufu backend service');
+        notifyError('Backend Disconnected', 'Lost connection to the Lobos backend service');
       }
     } catch (error) {
       const wasConnected = backendStatus;
       setBackendStatus(false);
       
       if (wasConnected) {
-        notifyError('Backend Error', 'Failed to connect to the Fufu backend service');
+        notifyError('Backend Error', 'Failed to connect to the Lobos backend service');
       }
     }
   };
@@ -1373,10 +1373,10 @@ export default function App({ thirdwebClient }: AppProps) {
     try {
       setLoading(true);
       const contractAddress = CONTRACT_ADDRESSES["ModredIPModule#ModredIP"];
-      console.log("📋 Using Fufu Contract:", contractAddress);
+      console.log("📋 Using ModredIP contract:", contractAddress);
       
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
           client: thirdwebClient,
           chain: defineChain(bnbChain.id),
         address: contractAddress,
@@ -1599,7 +1599,7 @@ export default function App({ thirdwebClient }: AppProps) {
         license_type: 'all_rights_reserved',
         commercial_use: false,
         derivatives_allowed: false,
-        creator_email: 'creator@fufu.com', // Could be enhanced with user input
+        creator_email: 'creator@lobos.app', // Could be enhanced with user input
         // File-specific metadata
         file_name: ipFile?.name || 'unknown',
         file_extension: ipFile?.name?.split('.').pop() || 'unknown',
@@ -1647,7 +1647,7 @@ export default function App({ thirdwebClient }: AppProps) {
           ipHash: ipHash,
           metadata: JSON.stringify(ipMetadata),
           isEncrypted: isEncrypted,
-          fufuContractAddress: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
+          lobosContractAddress: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
           skipContractCall: false // V2 contract has registerIP function, so this should be false
         })
       });
@@ -1798,7 +1798,7 @@ export default function App({ thirdwebClient }: AppProps) {
           duration: licenseDuration,
           commercialUse: commercialUse,
           terms: licenseTerms.terms,
-          fufuContractAddress: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"]
+          lobosContractAddress: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"]
         })
       });
 
@@ -1904,7 +1904,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Processing Payment', `Paying ${paymentAmount} tBNB in revenue...`);
 
         const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
           client: thirdwebClient,
           chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -1985,7 +1985,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Claiming Royalties', 'Processing royalty claim...');
 
         const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
           client: thirdwebClient,
           chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2067,7 +2067,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Raising Dispute', 'Submitting dispute...');
 
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2123,7 +2123,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Registering Arbitrator', `Registering with ${minArbitratorStake} tBNB stake...`);
 
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2168,7 +2168,7 @@ export default function App({ thirdwebClient }: AppProps) {
       
       // Check arbitrator status before unstaking
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2269,7 +2269,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Assigning Arbitrators', `Assigning ${selectedArbitrators.length} arbitrator(s) to dispute...`);
 
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2326,7 +2326,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Checking Resolution', 'Checking if dispute can be resolved after 24h wait period...');
 
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2404,7 +2404,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Transferring IP', 'Initiating IP asset transfer...');
 
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2511,7 +2511,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Resolving Dispute', 'Resolving dispute without arbitrators...');
 
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2566,7 +2566,7 @@ export default function App({ thirdwebClient }: AppProps) {
       notifyInfo('Submitting Decision', 'Submitting arbitration decision...');
 
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -2606,7 +2606,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
     try {
       const contract = getContract({
-        abi: FUFU_ABI,
+        abi: MODRED_IP_ABI,
         client: thirdwebClient,
         chain: defineChain(bnbChain.id),
         address: CONTRACT_ADDRESSES["ModredIPModule#ModredIP"],
@@ -3149,7 +3149,7 @@ export default function App({ thirdwebClient }: AppProps) {
             <div className="testimonials-grid">
               <div className="testimonial-card">
                 <div className="quote-mark">“</div>
-                <p>Fufu makes IP truly sovereign for creators—with stored licenses and creative control.</p>
+                <p>Lobos makes IP truly sovereign for creators—with stored licenses and creative control.</p>
                 <div className="author">
                   <span className="author-name">Alex Metaon</span>
                   <span className="author-role">Autonomous Creators</span>

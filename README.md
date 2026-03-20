@@ -1,4 +1,4 @@
-# Fufu – IP Management Platform
+# Lobos – IP Management Platform
 
 Decentralized intellectual property management on **BNB Smart Chain (BSC Testnet)**: register IP assets (ERC-6551), mint licenses, collect royalties, monitor infringements (Yakoa), and resolve disputes—all from one dashboard.
 
@@ -24,9 +24,9 @@ Decentralized intellectual property management on **BNB Smart Chain (BSC Testnet
 ## Project Structure
 
 ```
-fufu/
+lobos/
 ├── app/                    # React frontend (Vite + Thirdweb)
-│   ├── public/             # Static assets (e.g. fufu.png)
+│   ├── public/             # Static assets (e.g. lobos.png)
 │   ├── src/
 │   │   ├── deployed_addresses.json   # Contract addresses (from ignition)
 │   │   └── ...
@@ -67,8 +67,8 @@ fufu/
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/your-org/fufu.git
-cd fufu
+git clone https://github.com/your-org/lobos.git
+cd lobos
 yarn install
 ```
 
@@ -171,4 +171,4 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 ---
 
-**Built with ❤️ by the Fufu Team**
+**Built with ❤️ by the Lobos team**

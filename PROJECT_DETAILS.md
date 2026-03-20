@@ -1,4 +1,4 @@
-# Fufu – Project Details (Vision, Team, Roadmap)
+# Lobos – Project Details (Vision, Team, Roadmap)
 
 This document contains the full project description, vision, business model, team, roadmap, and related details. For getting started and development, see the main [README.md](README.md).
 
@@ -6,7 +6,7 @@ This document contains the full project description, vision, business model, tea
 
 ## Project Description
 
-Fufu is a decentralized intellectual property (IP) management platform built on **BSC Testnet** (BNB Chain). Creators can register IP assets as token-bound accounts (ERC-6551), mint licenses with programmable terms and royalties, receive and distribute revenue on-chain, and resolve disputes through an arbitration system. The platform uses IPFS for storage, integrates AI-powered infringement detection (Yakoa), and offers transfer and gifting of IP assets with full on-chain provenance.
+Lobos is a decentralized intellectual property (IP) management platform built on **BSC Testnet** (BNB Chain). Creators can register IP assets as token-bound accounts (ERC-6551), mint licenses with programmable terms and royalties, receive and distribute revenue on-chain, and resolve disputes through an arbitration system. The platform uses IPFS for storage, integrates AI-powered infringement detection (Yakoa), and offers transfer and gifting of IP assets with full on-chain provenance.
 
 **Tech stack:** React 18, TypeScript, Vite, Thirdweb SDK (frontend); Node.js, Express, Viem (backend); Solidity, Hardhat, Hardhat Ignition (contracts); BSC Testnet; IPFS/Pinata; Yakoa.
 
@@ -16,7 +16,7 @@ Fufu is a decentralized intellectual property (IP) management platform built on 
 
 **Vision:** To democratize intellectual property management by creating a decentralized, transparent, and automated platform that empowers creators to protect, monetize, and manage their IP assets with unprecedented efficiency.
 
-**Mission:** Fufu revolutionizes IP management by combining blockchain technology with AI-powered infringement detection, creating a comprehensive ecosystem where creators can register, license, monetize, and protect their intellectual property with built-in enforcement mechanisms.
+**Mission:** Lobos revolutionizes IP management by combining blockchain technology with AI-powered infringement detection, creating a comprehensive ecosystem where creators can register, license, monetize, and protect their intellectual property with built-in enforcement mechanisms.
 
 ---
 
@@ -51,4 +51,4 @@ Fufu is a decentralized intellectual property (IP) management platform built on 
 
 MIT. See [LICENSE](LICENSE) for details.
 
-**Built with ❤️ by the Fufu Team**
+**Built with ❤️ by the Lobos team**

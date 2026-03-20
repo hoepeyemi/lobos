@@ -1,12 +1,12 @@
-# Fufu Frontend
+# Lobos Frontend
 
-A React-based frontend for the Fufu intellectual property management system on BSC Testnet (BNB Chain).
+A React-based frontend for the Lobos intellectual property management system on BSC Testnet (BNB Chain).
 
 ## Features
 
 ### 1. Register IP Asset
 - Mint an NFT representing ownership of your intellectual property
-- Register the NFT as an IP Asset on the Fufu system
+- Register the NFT as an IP Asset on the Lobos system
 - Upload IP content and metadata to IPFS
 - Set encryption flags for sensitive content
 
@@ -141,7 +141,7 @@ A React-based frontend for the Fufu intellectual property management system on B
 ## Technical Details
 
 - **Blockchain**: BSC Testnet (Chain ID: 97)
-- **Smart Contract**: ModredIP (Fufu)
+- **Smart Contract**: ModredIP (Lobos)
 - **Wallet Integration**: Thirdweb SDK
 - **IPFS**: Used for storing IP content, metadata, and license terms
 - **ERC-6551**: Token-bound accounts for IP management
@@ -149,11 +149,11 @@ A React-based frontend for the Fufu intellectual property management system on B
 ## Contract Addresses
 
 Current deployed contract addresses are stored in `src/deployed_addresses.json`:
-- **ModredIP (Fufu)**: `0x667C61aa019EFEbECC88deF8fB3AFa0828A55Edf` (ModredIPModule#ModredIP)
+- **ModredIP (Lobos)**: `0x667C61aa019EFEbECC88deF8fB3AFa0828A55Edf` (ModredIPModule#ModredIP)
 - **ERC6551Registry**: `0x0d5ab973475A411213fb57Ad6Ac216995924F62F`
 - **ERC6551Account**: `0xC022Af5441732c2b3776dF9e66C96cB98eCC6F8E`
 
-**Note**: The contract key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Fufu".
+**Note**: The contract key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Lobos".
 
 ## Security Features
 

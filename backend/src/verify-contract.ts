@@ -1,8 +1,8 @@
 import { publicClient, account } from './utils/config';
 import { Address, encodeFunctionData } from 'viem';
 
-// Fufu contract ABI (simplified for IP registration)
-const FUFU_ABI = [
+// ModredIP contract ABI (simplified for IP registration)
+const MODRED_IP_ABI = [
     {
         "inputs": [
             {
@@ -54,7 +54,7 @@ async function verifyContract(contractAddress: Address, contractName: string) {
         // 2. Try to encode the function call
         try {
             const functionData = encodeFunctionData({
-                abi: FUFU_ABI,
+                abi: MODRED_IP_ABI,
                 functionName: 'registerIP',
                 args: ['ipfs://test', '{"test":"data"}', false],
             });
@@ -68,7 +68,7 @@ async function verifyContract(contractAddress: Address, contractName: string) {
         try {
             const gasEstimate = await publicClient.estimateContractGas({
                 address: contractAddress,
-                abi: FUFU_ABI,
+                abi: MODRED_IP_ABI,
                 functionName: 'registerIP',
                 args: ['ipfs://test', '{"test":"data"}', false],
                 account: account.address,
@@ -103,8 +103,8 @@ async function main() {
     const v1Address = '0x0734d90FA1857C073c4bf1e57f4F4151BE2e9f82' as Address;
     const v2Address = '0x667C61aa019EFEbECC88deF8fB3AFa0828A55Edf' as Address; // ModredIPModule#ModredIP
 
-    const v1HasFunction = await verifyContract(v1Address, 'Fufu Module V1');
-    const v2HasFunction = await verifyContract(v2Address, 'Fufu Module V2');
+    const v1HasFunction = await verifyContract(v1Address, 'ModredIP legacy V1');
+    const v2HasFunction = await verifyContract(v2Address, 'ModredIP (current deploy)');
 
     console.log('\n' + '='.repeat(60));
     console.log('\n📊 SUMMARY:');

@@ -5,11 +5,11 @@
 ## Current Contract Status
 
 The application is currently using the V2 contract:
-- **ModredIP (Fufu)**: `0x667C61aa019EFEbECC88deF8fB3AFa0828A55Edf`
+- **ModredIP (Lobos app)**: `0x667C61aa019EFEbECC88deF8fB3AFa0828A55Edf`
 - **Contract Key**: `ModredIPModule#ModredIP` (maintained for compatibility)
 - **Status**: ✅ Active and verified to have `registerIP` function
 
-**Note**: The contract key name "ModredIPModule#ModredIP" is maintained for backward compatibility, but the application is branded as "Fufu".
+**Note**: The contract key name "ModredIPModule#ModredIP" is maintained for backward compatibility; the application is branded as **Lobos**.
 
 ## Option 2: Deploy a New Contract
 
@@ -62,7 +62,7 @@ If you see **`IGN900: The deployment's chain cannot be changed between runs`** (
    }
    ```
    
-   **Note**: The key "ModredIPModule#ModredIP" is maintained for compatibility, but the application name is "Fufu".
+   **Note**: The key "ModredIPModule#ModredIP" is maintained for compatibility; the application name is **Lobos**.
 
 3. **Verify the contract** (optional; set `BSCSCAN_API_KEY` in Hardhat vars or replace placeholder in `hardhat.config.ts`):
    ```bash

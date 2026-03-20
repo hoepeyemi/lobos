@@ -7,9 +7,9 @@ import { convertBigIntsToStrings } from '../utils/bigIntSerializer';
 const handleRegistration = async (req: Request, res: Response) => {
   console.log("🔥 Entered handleRegistration");
   try {
-    const { ipHash, metadata, isEncrypted, fufuContractAddress, modredIpContractAddress, skipContractCall } = req.body;
-    // Support fufuContractAddress and legacy modredIpContractAddress
-    const contractAddress = fufuContractAddress || modredIpContractAddress;
+    const { ipHash, metadata, isEncrypted, lobosContractAddress, modredIpContractAddress, skipContractCall } = req.body;
+    // modredIpContractAddress supported for older clients only
+    const contractAddress = lobosContractAddress || modredIpContractAddress;
     console.log("📦 Received body:", req.body);
 
     // Validate required parameters
@@ -43,11 +43,11 @@ const handleRegistration = async (req: Request, res: Response) => {
     // Validate contract address if contract call is required
     if (!contractAddress) {
       return res.status(400).json({
-        error: 'Missing required parameter: fufuContractAddress (or modredIpContractAddress). Set skipContractCall=true to test without contract.'
+        error: 'Missing required parameter: lobosContractAddress (or modredIpContractAddress). Set skipContractCall=true to test without contract.'
       });
     }
 
-    // 1. Register on BNB Chain using Fufu contract
+    // 1. Register on BNB Chain using ModredIP (Lobos) contract
     let txHash: string | null = null;
     let ipAssetId: number | undefined = undefined;
     let blockNumber: bigint | null = null;
@@ -206,7 +206,7 @@ const handleRegistration = async (req: Request, res: Response) => {
           brand_name: null,
           data: {
             type: 'email' as const,
-            email_address: parsedMetadata.creator_email || 'creator@fufu.com'
+            email_address: parsedMetadata.creator_email || 'creator@lobos.app'
           }
         }
       ];
@@ -220,7 +220,7 @@ const yakoaResponse = await registerToYakoa({
         media: yakoaMedia,
         brandId: null,
         brandName: null,
-        emailAddress: parsedMetadata.creator_email || 'creator@fufu.com',
+        emailAddress: parsedMetadata.creator_email || 'creator@lobos.app',
         licenseParents: [],
         authorizations: authorizations,
 });

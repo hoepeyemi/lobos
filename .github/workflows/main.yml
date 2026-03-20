@@ -1,4 +1,4 @@
-name: Deploy Fufu Backend4
+name: Deploy Lobos Backend
 
 on:
   push:
@@ -36,9 +36,9 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            ${{ env.DOCKER_USERNAME }}/fufu:latest
-          cache-from: type=registry,ref=${{ env.DOCKER_USERNAME }}/fufu:buildcache
-          cache-to: type=registry,ref=${{ env.DOCKER_USERNAME }}/fufu:buildcache,mode=max
+            ${{ env.DOCKER_USERNAME }}/lobos:latest
+          cache-from: type=registry,ref=${{ env.DOCKER_USERNAME }}/lobos:buildcache
+          cache-to: type=registry,ref=${{ env.DOCKER_USERNAME }}/lobos:buildcache,mode=max
 
       - name: Deploy to Ubuntu server
         uses: appleboy/ssh-action@master
@@ -50,43 +50,43 @@ jobs:
             echo "Deployment started at $(date '+%Y-%m-%d %H:%M:%S UTC')"
             
             # Ensure backend .env exists on server
-            if [ ! -f /home/ubuntu/fufu/.env ]; then
+            if [ ! -f /home/ubuntu/lobos/.env ]; then
               echo "❌ Backend .env file not found on server!"
-              echo "Expected: /home/ubuntu/fufu/.env"
+              echo "Expected: /home/ubuntu/lobos/.env"
               exit 1
             fi
 
             # Stop and remove existing container
             echo "Stopping existing container..."
-            sudo docker stop fufu || true
-            sudo docker rm fufu || true
+            sudo docker stop lobos || true
+            sudo docker rm lobos || true
             
             # Pull latest image
             echo "Pulling latest image..."
-            sudo docker pull ${{ env.DOCKER_USERNAME }}/fufu:latest
+            sudo docker pull ${{ env.DOCKER_USERNAME }}/lobos:latest
             
             # Run new container with backend .env mounted
             echo "Starting new container..."
             sudo docker run -d \
-              --name fufu \
+              --name lobos \
               --restart unless-stopped \
               -p 8080:5000 \
-              -v /home/ubuntu/fufu/.env:/usr/src/app/.env:ro \
-              ${{ env.DOCKER_USERNAME }}/fufu:latest
+              -v /home/ubuntu/lobos/.env:/usr/src/app/.env:ro \
+              ${{ env.DOCKER_USERNAME }}/lobos:latest
             
             # Verify deployment
             echo "Verifying deployment..."
             sleep 10
             
-            if sudo docker ps | grep -q fufu; then
+            if sudo docker ps | grep -q lobos; then
               echo "✅ Container is running successfully"
-              echo "Container ID: $(sudo docker ps -q -f name=fufu)"
+              echo "Container ID: $(sudo docker ps -q -f name=lobos)"
               echo "Container logs:"
-              sudo docker logs --tail 20 fufu
+              sudo docker logs --tail 20 lobos
             else
               echo "❌ Container failed to start"
               echo "Error logs:"
-              sudo docker logs fufu
+              sudo docker logs lobos
               exit 1
             fi
             
@@ -100,15 +100,15 @@ jobs:
           username: ${{ env.HOST_USERNAME }}
           key: ${{ env.SSH_PRIVATE_KEY }}
           script: |
-            if sudo docker ps | grep -q fufu; then
+            if sudo docker ps | grep -q lobos; then
               echo "Container Status: Running"
               echo "Container Details:"
-              sudo docker inspect fufu --format='Status: {{.State.Status}} | Started At: {{.State.StartedAt}}'
+              sudo docker inspect lobos --format='Status: {{.State.Status}} | Started At: {{.State.StartedAt}}'
               echo "Port Mapping:"
-              sudo docker port fufu
+              sudo docker port lobos
               
               echo "Checking .env mount:"
-              sudo docker exec fufu ls -la /usr/src/app/.env || echo "❌ .env not found in container!"
+              sudo docker exec lobos ls -la /usr/src/app/.env || echo "❌ .env not found in container!"
             else
               echo "❌ Container is not running"
               exit 1
